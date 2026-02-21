@@ -36,7 +36,7 @@ A full-stack, production-ready personal portfolio with an **AI chat assistant** 
 ```
 AI-Powered Portfolio/
 ├── backend/
-│   ├── main.py               # FastAPI app + CORS
+│   ├── index.py              # Vercel entry point + FastAPI app
 │   ├── database.py           # SQLAlchemy async engine
 │   ├── seed.py               # Database seeder
 │   ├── models/               # ORM models (5 tables)
