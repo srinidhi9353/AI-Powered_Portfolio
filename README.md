@@ -183,16 +183,21 @@ Once your Frontend is live, copy its URL and update the **Backend** `ALLOWED_ORI
 
 ### ⚠️ Troubleshooting: Render Build Errors
 
-If you encounter a `Pydantic` or `Rust` compilation error during deployment, it means Render is defaulting to Python 3.14. Follow these steps to force the correct clean build:
+If you see `interpreter ... python3.14` or `Rust` compilation errors in your logs, Render has cached the wrong Python version. Use the **Fresh Start** strategy:
 
-1.  **Environment Variable**: In your Render Backend service → **Environment**, ensure `PYTHON_VERSION` is set to `3.11.9`.
-2.  **Clear Cache**: Click **Manual Deploy** → Select **Clear build cache & deploy**.
-3.  **Root Directory**: Ensure the **Root Directory** for the backend is set to `backend`.
-4.  **Requirements**: We use `pydantic==2.6.4` which has stable pre-built wheels to avoid Rust compilation entirely.
+1.  **DELETE** the existing Backend Web Service on Render. (Clearing cache is sometimes not enough for runtime changes).
+2.  **CREATE** a new **Manual Web Service** (do not use Blueprint if it fails):
+    - **Name**: `ai-portfolio-backend`
+    - **Root Directory**: `backend`
+    - **Runtime**: `Python 3`
+3.  **BEFORE the first deploy runs**, go to the **Environment** tab and add:
+    - `PYTHON_VERSION`: `3.11.9`
+4.  **Save and Deploy**. This forces Render to pick the Python 3.11 image from the start.
+5.  **Requirements**: We use `pydantic==2.6.4` to ensure stable wheels are used.
 
 ---
 
-## 📡 API Documentation
+### 📡 API Documentation
 
 | Method | Endpoint | Description |
 |---|---|---|
