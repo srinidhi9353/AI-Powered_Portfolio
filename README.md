@@ -36,7 +36,7 @@ A full-stack, production-ready personal portfolio with an **AI chat assistant** 
 ```
 AI-Powered Portfolio/
 ├── backend/
-│   ├── index.py              # Vercel entry point + FastAPI app
+│   ├── main.py               # FastAPI app + CORS
 │   ├── database.py           # SQLAlchemy async engine
 │   ├── seed.py               # Database seeder
 │   ├── models/               # ORM models (5 tables)
@@ -160,36 +160,19 @@ Frontend will be at `http://localhost:5173`
 3. Use **Session Mode** pooler URL for Render compatibility
 4. Run `python seed.py` once to create tables and seed data
 
-### 2. Backend — Vercel
+### 2. Full Stack — Render Blueprint (Recommended)
 
-1. Go to [vercel.com](https://vercel.com) → **New Project**.
-2. Connect your GitHub repository.
-3. In the "Configure Project" screen:
-   - **Root Directory**: Select `backend`.
-4. Add **Environment Variables**:
-   - `DATABASE_URL` (from Supabase)
-   - `OPENROUTER_API_KEY` (from openrouter.ai)
-5. Click **Deploy**. Vercel will auto-detect the `vercel.json` and Python runtime.
-6. Note your backend URL (e.g., `https://ai-portfolio-backend.vercel.app`).
-
-### 3. Frontend — Vercel
-
-1. Go to [vercel.com](https://vercel.com) → **New Project**.
-2. Connect your GitHub repository.
-3. In the "Configure Project" screen:
-   - **Root Directory**: Select `frontend`.
-   - **Framework Preset**: Vite.
-4. Add **Environment Variable**:
-   - **Key**: `VITE_API_URL`
-   - **Value**: `https://your-backend.vercel.app` (The URL from step 2).
-5. Click **Deploy**.
-
-### 4. Update CORS
-
-After deploying the frontend, update the backend `ALLOWED_ORIGINS` env var on Vercel:
-```
-ALLOWED_ORIGINS=https://your-portfolio.vercel.app
-```
+1. Push your repository to GitHub.
+2. Go to [render.com](https://render.com) → **New** → **Blueprint**.
+3. Connect your GitHub repo.
+4. Render will auto-detect the `render.yaml` file and set up TWO services:
+   - **Backend**: `ai-portfolio-backend` (FastAPI)
+   - **Frontend**: `ai-portfolio-frontend` (React Static Site)
+5. Click **Apply**.
+6. **Final Configuration**:
+   - In the **Backend** service → **Environment**, add your `DATABASE_URL` and `OPENROUTER_API_KEY`.
+   - In the **Frontend** service → **Environment**, add `VITE_API_URL` pointing to your Backend URL.
+   - Update **Backend** `ALLOWED_ORIGINS` with your Frontend URL for CORS security.
 
 ## 📡 API Documentation
 
