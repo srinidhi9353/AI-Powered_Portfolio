@@ -179,6 +179,19 @@ Frontend will be at `http://localhost:5173`
 #### C. Final Handshake (CORS)
 Once your Frontend is live, copy its URL and update the **Backend** `ALLOWED_ORIGINS` environment variable on Render to match your new frontend URL.
 
+---
+
+### ⚠️ Troubleshooting: Render Build Errors
+
+If you encounter a `Pydantic` or `Rust` compilation error during deployment, it means Render is defaulting to Python 3.14. Follow these steps to force the correct clean build:
+
+1.  **Environment Variable**: In your Render Backend service → **Environment**, ensure `PYTHON_VERSION` is set to `3.11.9`.
+2.  **Clear Cache**: Click **Manual Deploy** → Select **Clear build cache & deploy**.
+3.  **Root Directory**: Ensure the **Root Directory** for the backend is set to `backend`.
+4.  **Requirements**: We use `pydantic==2.6.4` which has stable pre-built wheels to avoid Rust compilation entirely.
+
+---
+
 ## 📡 API Documentation
 
 | Method | Endpoint | Description |
