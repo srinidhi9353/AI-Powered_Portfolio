@@ -170,10 +170,12 @@ Frontend will be at `http://localhost:5173`
    - **Root Directory**: `backend`
    - **Start Command**: `gunicorn main:app -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT`
 5. Click **Apply**.
-6. In the dashboard, go to **Environment** and add:
-   - `DATABASE_URL` (from Supabase)
-   - `OPENROUTER_API_KEY` (from openrouter.ai)
-7. Note your service URL (e.g. `https://ai-portfolio-backend.onrender.com`).
+6. Go to the **Environment** tab and add these **MANDATORY** variables:
+   - `PYTHON_VERSION`: `3.11.9` (This is critical to avoid Python 3.14/Rust errors)
+   - `DATABASE_URL`: (from Supabase)
+   - `OPENROUTER_API_KEY`: (from openrouter.ai)
+7. Click **Manual Deploy** → **Clear build cache & deploy**.
+8. Note your service URL (e.g. `https://ai-portfolio-backend.onrender.com`).
 
 ### 3. Frontend — Vercel
 
