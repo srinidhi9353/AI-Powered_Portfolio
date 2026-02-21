@@ -1,0 +1,10 @@
+services:
+  - type: static
+    name: ai-portfolio-frontend
+    env: static
+    rootDir: .
+    buildCommand: npm install && npm run build
+    publishDir: dist
+    envVars:
+      - key: VITE_API_URL
+        sync: false

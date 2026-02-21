@@ -160,31 +160,21 @@ Frontend will be at `http://localhost:5173`
 3. Use **Session Mode** pooler URL for Render compatibility
 4. Run `python seed.py` once to create tables and seed data
 
-### 2. Full Stack — Render Hybrid Deployment (Fixes 'static type' error)
+### 2. Full Stack — Separate Render Blueprints
 
-#### A. Backend — Render Blueprint
-1. Push your repository to GitHub.
-2. Go to [render.com](https://render.com) → **New** → **Blueprint**.
-3. Connect your GitHub repo.
-4. Render will auto-detect `render.yaml` and set up the **Backend** service.
-5. Click **Apply**.
-6. **MANDATORY**: In the **Backend** service settings → **Environment**, add:
-   - `DATABASE_URL` (from Supabase)
-   - `OPENROUTER_API_KEY` (from openrouter.ai)
-   - `PYTHON_VERSION`: `3.11.9`
+#### A. Backend Deployment
+1. Go to [render.com](https://render.com) → **New** → **Blueprint**.
+2. Connect your GitHub repo.
+3. **CRITICAL**: On the configuration screen, set **Blueprint Spec Path** to `backend/render.yaml`.
+4. Click **Apply**.
+5. Once created, go to the **Environment** tab and manually add your secret keys (`DATABASE_URL`, `OPENROUTER_API_KEY`).
 
-#### B. Frontend — Manual Static Site
-1. Go to [render.com](https://render.com) → **New** → **Static Site**.
+#### B. Frontend Deployment
+1. Go to [render.com](https://render.com) → **New** → **Blueprint**.
 2. Connect the same GitHub repo.
-3. Configure the following:
-   - **Name**: `ai-portfolio-frontend`
-   - **Root Directory**: `frontend`
-   - **Build Command**: `npm install && npm run build`
-   - **Publish Directory**: `dist`
-4. In the **Environment** tab, add:
-   - **Key**: `VITE_API_URL`
-   - **Value**: (Your Backend URL from step A)
-5. Click **Deploy**.
+3. **CRITICAL**: Set **Blueprint Spec Path** to `frontend/render.yaml`.
+4. Click **Apply**.
+5. Once created, go to the **Environment** tab and add `VITE_API_URL` (pointing to your backend).
 
 #### C. Final Handshake (CORS)
 Once your Frontend is live, copy its URL and update the **Backend** `ALLOWED_ORIGINS` environment variable on Render to match your new frontend URL.
