@@ -14,15 +14,4 @@ services:
       - key: PYTHON_VERSION
         value: 3.11.9
       - key: ALLOWED_ORIGINS
-        value: "*" # Update with frontend URL after deployment
-
-  # 2. React Frontend (Static Site)
-  - type: static
-    name: ai-portfolio-frontend
-    env: static
-    rootDir: frontend
-    buildCommand: npm install && npm run build
-    publishDir: dist
-    envVars:
-      - key: VITE_API_URL
-        sync: false # Set to Backend URL after deployment
+        value: "*" # Update with frontend Static Site URL after deployment

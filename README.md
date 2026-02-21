@@ -160,19 +160,34 @@ Frontend will be at `http://localhost:5173`
 3. Use **Session Mode** pooler URL for Render compatibility
 4. Run `python seed.py` once to create tables and seed data
 
-### 2. Full Stack — Render Blueprint (Recommended)
+### 2. Full Stack — Render Hybrid Deployment (Fixes 'static type' error)
 
+#### A. Backend — Render Blueprint
 1. Push your repository to GitHub.
 2. Go to [render.com](https://render.com) → **New** → **Blueprint**.
 3. Connect your GitHub repo.
-4. Render will auto-detect the `render.yaml` file and set up TWO services:
-   - **Backend**: `ai-portfolio-backend` (FastAPI)
-   - **Frontend**: `ai-portfolio-frontend` (React Static Site)
+4. Render will auto-detect `render.yaml` and set up the **Backend** service.
 5. Click **Apply**.
-6. **Final Configuration**:
-   - In the **Backend** service → **Environment**, add your `DATABASE_URL` and `OPENROUTER_API_KEY`.
-   - In the **Frontend** service → **Environment**, add `VITE_API_URL` pointing to your Backend URL.
-   - Update **Backend** `ALLOWED_ORIGINS` with your Frontend URL for CORS security.
+6. **MANDATORY**: In the **Backend** service settings → **Environment**, add:
+   - `DATABASE_URL` (from Supabase)
+   - `OPENROUTER_API_KEY` (from openrouter.ai)
+   - `PYTHON_VERSION`: `3.11.9`
+
+#### B. Frontend — Manual Static Site
+1. Go to [render.com](https://render.com) → **New** → **Static Site**.
+2. Connect the same GitHub repo.
+3. Configure the following:
+   - **Name**: `ai-portfolio-frontend`
+   - **Root Directory**: `frontend`
+   - **Build Command**: `npm install && npm run build`
+   - **Publish Directory**: `dist`
+4. In the **Environment** tab, add:
+   - **Key**: `VITE_API_URL`
+   - **Value**: (Your Backend URL from step A)
+5. Click **Deploy**.
+
+#### C. Final Handshake (CORS)
+Once your Frontend is live, copy its URL and update the **Backend** `ALLOWED_ORIGINS` environment variable on Render to match your new frontend URL.
 
 ## 📡 API Documentation
 
