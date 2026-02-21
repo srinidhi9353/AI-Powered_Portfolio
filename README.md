@@ -160,22 +160,17 @@ Frontend will be at `http://localhost:5173`
 3. Use **Session Mode** pooler URL for Render compatibility
 4. Run `python seed.py` once to create tables and seed data
 
-### 2. Backend — Render (Free Web Service)
+### 2. Backend — Vercel
 
-1. Push your repository to GitHub.
-2. Go to [render.com](https://render.com) → **New** → **Blueprint**.
-3. Connect your GitHub repo.
-4. Render will auto-detect the `render.yaml` file and set up:
-   - **Service Name**: `ai-portfolio-backend`
-   - **Root Directory**: `backend`
-   - **Start Command**: `gunicorn main:app -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT`
-5. Click **Apply**.
-6. Go to the **Environment** tab and add these **MANDATORY** variables:
-   - `PYTHON_VERSION`: `3.11.9` (This is critical to avoid Python 3.14/Rust errors)
-   - `DATABASE_URL`: (from Supabase)
-   - `OPENROUTER_API_KEY`: (from openrouter.ai)
-7. Click **Manual Deploy** → **Clear build cache & deploy**.
-8. Note your service URL (e.g. `https://ai-portfolio-backend.onrender.com`).
+1. Go to [vercel.com](https://vercel.com) → **New Project**.
+2. Connect your GitHub repository.
+3. In the "Configure Project" screen:
+   - **Root Directory**: Select `backend`.
+4. Add **Environment Variables**:
+   - `DATABASE_URL` (from Supabase)
+   - `OPENROUTER_API_KEY` (from openrouter.ai)
+5. Click **Deploy**. Vercel will auto-detect the `vercel.json` and Python runtime.
+6. Note your backend URL (e.g., `https://ai-portfolio-backend.vercel.app`).
 
 ### 3. Frontend — Vercel
 
@@ -186,12 +181,12 @@ Frontend will be at `http://localhost:5173`
    - **Framework Preset**: Vite.
 4. Add **Environment Variable**:
    - **Key**: `VITE_API_URL`
-   - **Value**: `https://your-api-onrender-url.com` (your Render URL from step 2).
+   - **Value**: `https://your-backend.vercel.app` (The URL from step 2).
 5. Click **Deploy**.
 
 ### 4. Update CORS
 
-After deploying the frontend, update the backend `ALLOWED_ORIGINS` env var on Render:
+After deploying the frontend, update the backend `ALLOWED_ORIGINS` env var on Vercel:
 ```
 ALLOWED_ORIGINS=https://your-portfolio.vercel.app
 ```
