@@ -183,17 +183,13 @@ Once your Frontend is live, copy its URL and update the **Backend** `ALLOWED_ORI
 
 ### ⚠️ Troubleshooting: Render Build Errors
 
-If you see `interpreter ... python3.14` or `Rust` compilation errors in your logs, Render has cached the wrong Python version. Use the **Fresh Start** strategy:
+If you encounter `maturin failed` or `cargo metadata failed` errors in your logs, it's because of a dependency compilation issue on Python 3.14. We have implemented the **No-Pin Strategy** to fix this:
 
-1.  **DELETE** the existing Backend Web Service on Render. (Clearing cache is sometimes not enough for runtime changes).
-2.  **CREATE** a new **Manual Web Service** (do not use Blueprint if it fails):
-    - **Name**: `ai-portfolio-backend`
-    - **Root Directory**: `backend`
-    - **Runtime**: `Python 3`
-3.  **BEFORE the first deploy runs**, go to the **Environment** tab and add:
-    - `PYTHON_VERSION`: `3.11.9`
-4.  **Save and Deploy**. This forces Render to pick the Python 3.11 image from the start.
-5.  **Requirements**: We use `pydantic==2.6.4` to ensure stable wheels are used.
+1.  **Remove Explicit Pins**: We have removed the explicit version pinning for `pydantic` in `backend/requirements.txt`.
+2.  **FastAPI Managed Dependencies**: By letting FastAPI manage its own dependencies, Render will correctly pull pre-built wheels that match Python 3.14, avoiding Rust compilation entirely.
+3.  **Clear Cache**: If you still see errors, click **Manual Deploy** → Select **Clear build cache & deploy** on Render.
+
+This approach is the most stable for modern Python environments on Render's read-only file system.
 
 ---
 
