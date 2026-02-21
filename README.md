@@ -162,23 +162,30 @@ Frontend will be at `http://localhost:5173`
 
 ### 2. Backend — Render (Free Web Service)
 
-1. Push `backend/` to a GitHub repository
-2. Go to [render.com](https://render.com) → New → Web Service
-3. Connect your GitHub repo
-4. Configure:
-   - **Runtime**: Python 3
-   - **Build Command**: `pip install -r requirements.txt`
-   - **Start Command**: `uvicorn main:app --host 0.0.0.0 --port $PORT`
-5. Add all environment variables from `.env.example`
-6. Deploy — note your service URL (e.g. `https://your-api.onrender.com`)
+1. Push your repository to GitHub.
+2. Go to [render.com](https://render.com) → **New** → **Blueprint**.
+3. Connect your GitHub repo.
+4. Render will auto-detect the `render.yaml` file and set up:
+   - **Service Name**: `ai-portfolio-backend`
+   - **Root Directory**: `backend`
+   - **Start Command**: `gunicorn main:app -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT`
+5. Click **Apply**.
+6. In the dashboard, go to **Environment** and add:
+   - `DATABASE_URL` (from Supabase)
+   - `OPENROUTER_API_KEY` (from openrouter.ai)
+7. Note your service URL (e.g. `https://ai-portfolio-backend.onrender.com`).
 
 ### 3. Frontend — Vercel
 
-1. Push `frontend/` to a GitHub repository
-2. Go to [vercel.com](https://vercel.com) → New Project → Import repo
-3. Add environment variable:
-   - `VITE_API_URL` = `https://your-api.onrender.com`
-4. Deploy — Vercel auto-detects Vite
+1. Go to [vercel.com](https://vercel.com) → **New Project**.
+2. Connect your GitHub repository.
+3. In the "Configure Project" screen:
+   - **Root Directory**: Select `frontend`.
+   - **Framework Preset**: Vite.
+4. Add **Environment Variable**:
+   - **Key**: `VITE_API_URL`
+   - **Value**: `https://your-api-onrender-url.com` (your Render URL from step 2).
+5. Click **Deploy**.
 
 ### 4. Update CORS
 
