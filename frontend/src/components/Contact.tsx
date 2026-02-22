@@ -95,7 +95,7 @@ export default function Contact() {
                     </a>
 
                     <a
-                        href="https://wa.me/919353170957?text=Hi%20Srinidhi%2C%20I%20viewed%20your%20portfolio%20and%20would%20like%20to%20connect."
+                        href="https://wa.me/919353170957"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl font-bold text-white text-base bg-green-600 hover:bg-green-500 transition-all shadow-2xl shadow-green-600/20 hover:shadow-green-500/40 hover:-translate-y-1 duration-200"

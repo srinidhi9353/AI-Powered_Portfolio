@@ -102,7 +102,7 @@ export default function Hero() {
                         View Projects
                     </a>
                     <a
-                        href="/resume.pdf"
+                        href="https://drive.google.com/uc?export=download&id=1vhjmUQdpcJ0KQX7opf9bnDth_mkU2EXM"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="px-7 py-3.5 rounded-2xl font-semibold glass-card text-slate-200 hover:text-white hover:border-white/30 transition-all duration-200 hover:-translate-y-0.5 flex items-center justify-center gap-2"
@@ -130,9 +130,9 @@ export default function Hero() {
                     className="mt-20 grid grid-cols-3 gap-8 max-w-lg mx-auto"
                 >
                     {[
-                        { value: '7', label: 'Certificates' },
-                        { value: '5+', label: 'Projects Built' },
-                        { value: '2', label: 'Internships' },
+                        { value: '4', label: 'Certificates' },
+                        { value: '3+', label: 'Projects Built' },
+                        { value: '1', label: 'Internships' },
                     ].map((stat) => (
                         <div key={stat.label} className="text-center">
                             <div className="text-3xl font-black gradient-text">{stat.value}</div>

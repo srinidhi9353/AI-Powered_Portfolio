@@ -7,7 +7,7 @@ const makeId = () => Math.random().toString(36).slice(2)
 const WELCOME: ChatMessage = {
     id: makeId(),
     role: 'assistant',
-    content: "Hi! 👋 I'm Srinidhi's AI portfolio assistant. Ask me anything about his skills, experience, projects, or certificates!",
+    content: "Hi! 👋 I'm Srinidhi N. Ask me anything about my skills, projects, education, or experience.",
     timestamp: new Date(),
 }
 

@@ -1,9 +1,7 @@
-from fastapi import APIRouter, Depends
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select
+from fastapi import APIRouter, HTTPException
+from pathlib import Path
+import json
 
-from database import get_db
-from models import Profile, Skill, Experience, Project, Education, Certificate
 from schemas import (
     ProfileResponse, SkillResponse, ExperienceResponse,
     ProjectResponse, EducationResponse, CertificateResponse,
@@ -11,42 +9,50 @@ from schemas import (
 
 router = APIRouter()
 
+def load_resume_data():
+    """Loads resume data from local JSON file."""
+    try:
+        file_path = Path(__file__).parent.parent / "data" / "resume.json"
+        with open(file_path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception as e:
+        print(f"Error loading resume.json: {e}")
+        return {}
 
 @router.get("/profile", response_model=ProfileResponse)
-async def get_profile(db: AsyncSession = Depends(get_db)):
-    result = await db.execute(select(Profile).limit(1))
-    return result.scalar_one()
+async def get_profile():
+    data = load_resume_data()
+    profile = data.get("profile", {})
+    if not profile:
+        raise HTTPException(status_code=404, detail="Profile not found")
+    return profile
 
 
 @router.get("/skills", response_model=list[SkillResponse])
-async def get_skills(db: AsyncSession = Depends(get_db)):
-    result = await db.execute(select(Skill).order_by(Skill.category, Skill.name))
-    return result.scalars().all()
+async def get_skills():
+    data = load_resume_data()
+    return data.get("skills", [])
 
 
 @router.get("/experience", response_model=list[ExperienceResponse])
-async def get_experience(db: AsyncSession = Depends(get_db)):
-    result = await db.execute(
-        select(Experience).order_by(Experience.is_current.desc(), Experience.id.desc())
-    )
-    return result.scalars().all()
+async def get_experience():
+    data = load_resume_data()
+    return data.get("experience", [])
 
 
 @router.get("/projects", response_model=list[ProjectResponse])
-async def get_projects(db: AsyncSession = Depends(get_db)):
-    result = await db.execute(
-        select(Project).order_by(Project.featured.desc(), Project.order)
-    )
-    return result.scalars().all()
+async def get_projects():
+    data = load_resume_data()
+    return data.get("projects", [])
 
 
 @router.get("/education", response_model=list[EducationResponse])
-async def get_education(db: AsyncSession = Depends(get_db)):
-    result = await db.execute(select(Education).order_by(Education.start_year.desc()))
-    return result.scalars().all()
+async def get_education():
+    data = load_resume_data()
+    return data.get("education", [])
 
 
 @router.get("/certificates", response_model=list[CertificateResponse])
-async def get_certificates(db: AsyncSession = Depends(get_db)):
-    result = await db.execute(select(Certificate).order_by(Certificate.year.desc()))
-    return result.scalars().all()
+async def get_certificates():
+    data = load_resume_data()
+    return data.get("certificates", [])
