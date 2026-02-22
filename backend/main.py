@@ -23,17 +23,10 @@ app = FastAPI(
 )
 
 # CORS — Permanent Production Fix
-ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS")
-
-if ALLOWED_ORIGINS:
-    origins = [origin.strip() for origin in ALLOWED_ORIGINS.split(",")]
-else:
-    origins = ["*"]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=False,  # Required for '*' support
+    allow_origins=["*"],      # Allow all origins
+    allow_credentials=False,  # Must be False when using "*"
     allow_methods=["*"],
     allow_headers=["*"],
 )
