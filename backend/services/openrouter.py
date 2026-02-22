@@ -22,7 +22,9 @@ def build_system_prompt(resume_data: Dict[str, Any]) -> str:
     from collections import defaultdict
     skill_by_cat: Dict[str, list] = defaultdict(list)
     for s in skills:
-        skill_by_cat[s["category"]].append(s["name"])
+        cat = s.get("category", "Other")
+        name = s.get("name", "Unknown Skill")
+        skill_by_cat[cat].append(name)
 
     skills_text = "\n".join(
         [f"  {cat}: {', '.join(names)}" for cat, names in skill_by_cat.items()]
@@ -34,8 +36,8 @@ def build_system_prompt(resume_data: Dict[str, Any]) -> str:
         bullets = "\n".join([f"    - {b}" for b in (exp.get("bullets") or [])])
         end = exp.get("end_date") or "Present"
         experience_text += (
-            f"  - {exp['role']} at {exp['company']} "
-            f"({exp['start_date']} – {end})\n"
+            f"  - {exp.get('role', 'Role')} at {exp.get('company', 'Company')} "
+            f"({exp.get('start_date', 'N/A')} – {end})\n"
             f"{bullets}\n"
         )
     experience_text = experience_text.strip() or "  Not specified."
@@ -45,7 +47,7 @@ def build_system_prompt(resume_data: Dict[str, Any]) -> str:
     for proj in projects:
         tech = ", ".join(proj.get("tech_stack") or [])
         projects_text += (
-            f"  - {proj['name']}: {proj['description']}\n"
+            f"  - {proj.get('name', 'Project')}: {proj.get('description', 'No description available.')}\n"
             f"    Tech: {tech}\n"
         )
     projects_text = projects_text.strip() or "  Not specified."
@@ -55,15 +57,17 @@ def build_system_prompt(resume_data: Dict[str, Any]) -> str:
     sorted_edu = sorted(education, key=lambda x: str(x.get("start_year", "0")), reverse=True)
     edu_text = ""
     for e in sorted_edu:
+        field = e.get("field", "")
+        field_text = f" in {field}" if field else ""
         edu_text += (
-            f"  - {e['degree']} in {e['field']} at {e['institution']} "
-            f"({e['start_year']} – {e.get('end_year') or 'Ongoing'})\n"
+            f"  - {e.get('degree', 'Degree')}{field_text} at {e.get('institution', 'Institution')} "
+            f"({e.get('start_year', 'N/A')} – {e.get('end_year') or 'Ongoing'})\n"
         )
     edu_text = edu_text.strip() or "  Not specified."
 
     # ── Certificates ──────────────────────────────────────────
     certs_text = "\n".join(
-        [f"  - {c['title']} by {c['issuer']} ({c['year']})" for c in certificates]
+        [f"  - {c.get('title', 'Certificate')} by {c.get('issuer', 'Issuer')} ({c.get('year', 'N/A')})" for c in certificates]
     ) or "  Not specified."
 
     name = profile.get("name", "Srinidhi N")

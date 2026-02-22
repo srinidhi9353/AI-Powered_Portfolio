@@ -1,74 +1,126 @@
 {
-  "profile": {
-    "name": "Srinidhi N",
-    "title": "Full Stack Developer",
-    "location": "Bangalore, India",
-    "email": "ssrinidhi622@gmail.com",
-    "phone": "+91 9353170957",
-    "github": "https://github.com/srinidhi9353",
-    "linkedin": "https://linkedin.com/in/srinidhi-n-a185652a3"
-  },
-  "education": [
-    {
-      "institution": "East Point College of Engineering and Technology",
-      "degree": "Bachelor of Engineering",
-      "field": "Computer Science and Engineering",
-      "start_year": 2022,
-      "end_year": 2026
+    "profile": {
+        "name": "Srinidhi N",
+        "title": "Full Stack Developer",
+        "location": "Bangalore, India",
+        "email": "ssrinidhi622@gmail.com",
+        "phone": "+91 9353170957",
+        "github": "https://github.com/srinidhi9353",
+        "linkedin": "https://linkedin.com/in/srinidhi-n-a185652a3"
     },
-    {
-      "institution": "Advitya PU College, Bangalore",
-      "degree": "Pre-University Course (PCMCs)",
-      "start_year": 2020,
-      "end_year": 2022
-    }
-  ],
-  "experience": [
-    {
-      "company": "CodSoft",
-      "role": "Web Development Intern",
-      "start_date": "Oct 2024",
-      "end_date": "Oct 2024",
-      "description": "Developed full-stack web features using HTML, CSS, JavaScript, and backend APIs.",
-      "bullets": [
-        "Built reusable frontend components",
-        "Integrated backend APIs",
-        "Improved performance through debugging and optimization",
-        "Used Git-based version control in collaborative workflow"
-      ]
-    }
-  ],
-  "projects": [
-    {
-      "name": "AI-Enhanced Algorithm Visualizer",
-      "description": "Full-stack platform built with React 18, TypeScript, and Node.js to visualize sorting and pathfinding algorithms with real-time animations.",
-      "tech_stack": ["React 18", "TypeScript", "Node.js"]
-    },
-    {
-      "name": "Wispr Flow Clone",
-      "description": "Real-time voice-to-text web application using Deepgram API.",
-      "tech_stack": ["React", "JavaScript", "Deepgram API"]
-    },
-    {
-      "name": "Movie Ticketing Web Application",
-      "description": "End-to-end ticket booking system with real-time seat selection.",
-      "tech_stack": ["React", "JavaScript"]
-    }
-  ],
-  "skills": [
-    { "name": "JavaScript", "category": "Languages" },
-    { "name": "Python", "category": "Languages" },
-    { "name": "Java", "category": "Languages" },
-    { "name": "C++", "category": "Languages" },
-    { "name": "React 18", "category": "Frontend" },
-    { "name": "TypeScript", "category": "Frontend" },
-    { "name": "Node.js", "category": "Backend" },
-    { "name": "Express.js", "category": "Backend" }
-  ],
-  "certificates": [
-    { "title": "Data Structures and Algorithms", "issuer": "Infosys Springboard", "year": 2024 },
-    { "title": "Java Foundations", "issuer": "Oracle Academy", "year": 2024 },
-    { "title": "AWS Cloud Practitioner", "issuer": "AWS Skill Builder", "year": 2024 },
-    { "title": "Automation Starter", "issuer": "UiPath", "year": 2024 }
-  ]
+    "education": [
+        {
+            "institution": "East Point College of Engineering and Technology",
+            "degree": "Bachelor of Engineering",
+            "field": "Computer Science and Engineering",
+            "start_year": 2022,
+            "end_year": 2026
+        },
+        {
+            "institution": "Advitya PU College, Bangalore",
+            "degree": "Pre-University Course (PCMCs)",
+            "field": "PCMCs",
+            "start_year": 2020,
+            "end_year": 2022
+        }
+    ],
+    "experience": [
+        {
+            "company": "CodSoft",
+            "role": "Web Development Intern",
+            "start_date": "Oct 2024",
+            "end_date": "Oct 2024",
+            "description": "Developed full-stack web features using HTML, CSS, JavaScript, and backend APIs.",
+            "bullets": [
+                "Built reusable frontend components",
+                "Integrated backend APIs",
+                "Improved performance through debugging and optimization",
+                "Used Git-based version control in collaborative workflow"
+            ]
+        }
+    ],
+    "projects": [
+        {
+            "name": "AI-Enhanced Algorithm Visualizer",
+            "description": "Full-stack platform built with React 18, TypeScript, and Node.js to visualize sorting and pathfinding algorithms with real-time animations.",
+            "tech_stack": [
+                "React 18",
+                "TypeScript",
+                "Node.js"
+            ]
+        },
+        {
+            "name": "Wispr Flow Clone",
+            "description": "Real-time voice-to-text web application using Deepgram API.",
+            "tech_stack": [
+                "React",
+                "JavaScript",
+                "Deepgram API"
+            ]
+        },
+        {
+            "name": "Movie Ticketing Web Application",
+            "description": "End-to-end ticket booking system with real-time seat selection.",
+            "tech_stack": [
+                "React",
+                "JavaScript"
+            ]
+        }
+    ],
+    "skills": [
+        {
+            "name": "JavaScript",
+            "category": "Languages"
+        },
+        {
+            "name": "Python",
+            "category": "Languages"
+        },
+        {
+            "name": "Java",
+            "category": "Languages"
+        },
+        {
+            "name": "C++",
+            "category": "Languages"
+        },
+        {
+            "name": "React 18",
+            "category": "Frontend"
+        },
+        {
+            "name": "TypeScript",
+            "category": "Frontend"
+        },
+        {
+            "name": "Node.js",
+            "category": "Backend"
+        },
+        {
+            "name": "Express.js",
+            "category": "Backend"
+        }
+    ],
+    "certificates": [
+        {
+            "title": "Data Structures and Algorithms",
+            "issuer": "Infosys Springboard",
+            "year": 2024
+        },
+        {
+            "title": "Java Foundations",
+            "issuer": "Oracle Academy",
+            "year": 2024
+        },
+        {
+            "title": "AWS Cloud Practitioner",
+            "issuer": "AWS Skill Builder",
+            "year": 2024
+        },
+        {
+            "title": "Automation Starter",
+            "issuer": "UiPath",
+            "year": 2024
+        }
+    ]
 }
