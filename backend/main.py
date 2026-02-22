@@ -22,13 +22,18 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# CORS — allow Vercel frontend + local dev
-origins = os.getenv("ALLOWED_ORIGINS", "*").split(",")
+# CORS — Permanent Production Fix
+ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS")
+
+if ALLOWED_ORIGINS:
+    origins = [origin.strip() for origin in ALLOWED_ORIGINS.split(",")]
+else:
+    origins = ["*"]
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
-    allow_credentials=True,
+    allow_credentials=False,  # Required for '*' support
     allow_methods=["*"],
     allow_headers=["*"],
 )
