@@ -17,7 +17,11 @@ export function useChat() {
     const [error, setError] = useState<string | null>(null)
 
     const sendMessage = useCallback(async (text: string) => {
-        if (!text.trim() || isLoading) return
+        console.log("SEND MESSAGE CALLED", { text, isLoading })
+        if (!text.trim() || isLoading) {
+            console.log("sendMessage early return")
+            return
+        }
 
         const userMessage: ChatMessage = {
             id: makeId(),
@@ -30,9 +34,15 @@ export function useChat() {
         setError(null)
 
         try {
+            console.log("Initiating API request to /api/chat", {
+                baseURL: api.defaults.baseURL,
+                VITE_API_URL: import.meta.env.VITE_API_URL,
+                payload: { message: text.trim() }
+            })
             const response = await api.post<{ reply: string }>('/api/chat', {
                 message: text.trim(),
             })
+            console.log("API response received:", response.data)
             const assistantMessage: ChatMessage = {
                 id: makeId(),
                 role: 'assistant',
@@ -40,12 +50,15 @@ export function useChat() {
                 timestamp: new Date(),
             }
             setMessages((prev) => [...prev, assistantMessage])
-        } catch {
+        } catch (err: any) {
+            console.error("API Error caught in useChat:", err)
+            console.log("Error details - message:", err.message, "config:", err.config)
             setError('Something went wrong. Please try again.')
         } finally {
             setIsLoading(false)
         }
     }, [isLoading])
+
 
     const clearMessages = useCallback(() => {
         setMessages([{ ...WELCOME, id: makeId(), timestamp: new Date() }])

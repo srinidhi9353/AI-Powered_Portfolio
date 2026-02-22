@@ -42,7 +42,11 @@ export default function ChatDrawer({ onClose }: Props) {
     }, [onClose])
 
     const handleSend = () => {
-        if (!inputValue.trim() || isLoading) return
+        console.log("SEND BUTTON CLICKED - inputValue:", inputValue, "isLoading:", isLoading)
+        if (!inputValue.trim() || isLoading) {
+            console.log("handleSend early return - empty or loading")
+            return
+        }
         sendMessage(inputValue)
         setInputValue('')
     }
@@ -55,6 +59,7 @@ export default function ChatDrawer({ onClose }: Props) {
     }
 
     const handleSuggestion = (q: string) => {
+        console.log("SUGGESTION CLICKED:", q)
         if (isLoading) return
         sendMessage(q)
     }
