@@ -7,7 +7,7 @@ load_dotenv()
 
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "")
 OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1/chat/completions"
-MODEL = os.getenv("OPENROUTER_MODEL", "google/gemini-2.0-flash-lite-001")
+MODEL = os.getenv("OPENROUTER_MODEL", "meta-llama/llama-3-8b-instruct")
 
 
 def build_system_prompt(resume_data: Dict[str, Any]) -> str:
