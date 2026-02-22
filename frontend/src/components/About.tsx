@@ -86,9 +86,10 @@ export default function About() {
                                 LinkedIn
                             </a>
                             <a
-                                href="/resume.pdf"
+                                href="https://drive.google.com/uc?export=download&id=1vhjmUQdpcJ0KQX7opf9bnDth_mkU2EXM"
                                 target="_blank"
                                 rel="noopener noreferrer"
+                                download
                                 className="px-5 py-2.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-cyan-500 to-purple-600 text-white hover:opacity-90 transition-opacity shadow-lg shadow-cyan-500/20 flex items-center gap-2"
                             >
                                 📄 Download Resume

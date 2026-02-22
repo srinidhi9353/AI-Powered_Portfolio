@@ -105,6 +105,7 @@ export default function Hero() {
                         href="https://drive.google.com/uc?export=download&id=1vhjmUQdpcJ0KQX7opf9bnDth_mkU2EXM"
                         target="_blank"
                         rel="noopener noreferrer"
+                        download
                         className="px-7 py-3.5 rounded-2xl font-semibold glass-card text-slate-200 hover:text-white hover:border-white/30 transition-all duration-200 hover:-translate-y-0.5 flex items-center justify-center gap-2"
                     >
                         📄 Download Resume
