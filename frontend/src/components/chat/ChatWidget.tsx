@@ -1,14 +1,21 @@
-import { lazy, Suspense, useState } from 'react'
+import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Sparkles } from 'lucide-react'
-
-// Pre-load the drawer immediately so it's ready when user clicks
-const ChatDrawer = lazy(() => import('./ChatDrawer'))
+import ChatDrawer from './ChatDrawer'
 
 export default function ChatWidget() {
     const [isOpen, setIsOpen] = useState(false)
 
-    const handleClose = () => setIsOpen(false)
+    const handleClose = () => {
+        console.log("Closing Chat Drawer")
+        setIsOpen(false)
+    }
+
+    const handleOpen = () => {
+        console.log("Opening Chat Drawer")
+        setIsOpen(true)
+    }
+
 
     return (
         <>
@@ -26,13 +33,11 @@ export default function ChatWidget() {
             </AnimatePresence>
 
             {/* Chat Drawer component */}
-            <Suspense fallback={null}>
-                <AnimatePresence mode="wait">
-                    {isOpen && (
-                        <ChatDrawer key="drawer" onClose={handleClose} />
-                    )}
-                </AnimatePresence>
-            </Suspense>
+            <AnimatePresence mode="wait">
+                {isOpen && (
+                    <ChatDrawer key="drawer" onClose={handleClose} />
+                )}
+            </AnimatePresence>
 
             {/* Floating action button — PhonePe center-aligned style */}
             <AnimatePresence>
@@ -46,7 +51,7 @@ export default function ChatWidget() {
                         transition={{ type: 'spring', stiffness: 120, damping: 20 }}
                     >
                         <motion.button
-                            onClick={() => setIsOpen(true)}
+                            onClick={handleOpen}
                             whileHover={{ scale: 1.08 }}
                             whileTap={{ scale: 0.95 }}
                             className="pointer-events-auto relative w-16 h-16 rounded-full bg-gradient-to-br from-cyan-500 to-purple-600 text-white shadow-2xl flex items-center justify-center transition-shadow duration-300 group"

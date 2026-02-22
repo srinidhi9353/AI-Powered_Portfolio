@@ -1,4 +1,4 @@
-import { Suspense, lazy } from 'react'
+import { } from 'react'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -8,10 +8,10 @@ import Experience from './components/Experience'
 import Certificates from './components/Certificates'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
-
-const ChatWidget = lazy(() => import('./components/chat/ChatWidget'))
+import ChatWidget from './components/chat/ChatWidget'
 
 export default function App() {
+  console.log("App component rendered")
   return (
     <div className="min-h-screen bg-slate-900 text-white pb-24">
       <Navbar />
@@ -27,9 +27,8 @@ export default function App() {
       {/* Fintech-style Bottom Blur Strip */}
       <div className="fixed bottom-0 left-0 w-full h-16 bg-slate-900/40 backdrop-blur-xl border-t border-white/10 z-40" />
 
-      <Suspense fallback={null}>
-        <ChatWidget />
-      </Suspense>
+      <ChatWidget />
     </div>
   )
 }
+
