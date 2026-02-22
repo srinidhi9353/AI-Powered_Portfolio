@@ -9,6 +9,24 @@ from routes import chat, resume
 
 load_dotenv()
 
+# Diagnostic prints for Render debugging
+print("--- DEBUG START ---")
+db_url = os.getenv("DATABASE_URL")
+if db_url:
+    print(f"DATABASE_URL = {db_url[:15]}...{db_url[-5:]}")
+else:
+    print("DATABASE_URL = None")
+
+api_key = os.getenv("OPENROUTER_API_KEY")
+if api_key:
+    print(f"OPENROUTER_API_KEY = Set (length {len(api_key)})")
+else:
+    print("OPENROUTER_API_KEY = None")
+
+print(f"ALLOWED_ORIGINS = {os.getenv('ALLOWED_ORIGINS', 'None')}")
+print("--- DEBUG END ---")
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     print("🚀 App starting...")
@@ -33,8 +51,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(chat.router, prefix="/api")
-app.include_router(resume.router, prefix="/api")
+# Temporarily disabled to debug startup crash
+# app.include_router(chat.router, prefix="/api")
+# app.include_router(resume.router, prefix="/api")
+
 
 
 @app.get("/")
