@@ -1,6 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
+import traceback
+import sys
 
 from database import get_db
 from models import Profile, Skill, Experience, Project, Education, Certificate
@@ -114,9 +116,12 @@ async def chat(request: ChatRequest, db: AsyncSession = Depends(get_db)):
         return ChatResponse(reply=reply)
 
     except ValueError as e:
+        print(f"CHAT ERROR (ValueError): {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
-    except Exception:
+    except Exception as e:
+        print("CHAT ERROR (Unhandled):")
+        traceback.print_exc()
         raise HTTPException(
-            status_code=503,
-            detail="AI service temporarily unavailable. Please try again.",
+            status_code=500,
+            detail=f"Internal error: {str(e)}",
         )

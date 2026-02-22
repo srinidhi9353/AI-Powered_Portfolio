@@ -127,8 +127,26 @@ async def call_openrouter(messages: List[Dict[str, str]]) -> str:
         "temperature": 0.2,
     }
 
+    print(f"--- Calling OpenRouter API ---")
+    print(f"Model: {MODEL}")
+    print(f"URL: {OPENROUTER_BASE_URL}")
+    print(f"API Key present: {'Yes' if OPENROUTER_API_KEY else 'No'}")
+
     async with httpx.AsyncClient(timeout=30.0) as client:
-        response = await client.post(OPENROUTER_BASE_URL, headers=headers, json=payload)
-        response.raise_for_status()
-        data = response.json()
-        return data["choices"][0]["message"]["content"].strip()
+        try:
+            response = await client.post(OPENROUTER_BASE_URL, headers=headers, json=payload)
+            print(f"OpenRouter Status: {response.status_code}")
+            
+            if response.status_code != 200:
+                print(f"OpenRouter Error Response: {response.text}")
+            
+            response.raise_for_status()
+            data = response.json()
+            return data["choices"][0]["message"]["content"].strip()
+        except httpx.HTTPStatusError as e:
+            print(f"HTTPX Status Error: {str(e)}")
+            print(f"Response Body: {e.response.text}")
+            raise ValueError(f"OpenRouter API failed with status {e.response.status_code}")
+        except Exception as e:
+            print(f"HTTPX Request Failed: {str(e)}")
+            raise ValueError(f"Failed to connect to OpenRouter: {str(e)}")
